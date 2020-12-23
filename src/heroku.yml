@@ -1,0 +1,10 @@
+build:
+  docker:
+    web: Dockerfile
+    release: release/Dockerfile
+release:
+  image: release
+  command:
+    - ./migrate.sh
+run:
+  web: ./start.sh
