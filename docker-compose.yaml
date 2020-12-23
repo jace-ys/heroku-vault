@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:13.1-alpine
+    ports:
+      - 5432:5432
+    volumes:
+      - ./src/release/migrations:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: vault
+      POSTGRES_PASSWORD: vault
+      POSTGRES_DB: vault
+
+  vault:
+    build:
+      context: src
+    image: heroku-vault:latest
+    ports:
+      - 8200:8200
+    entrypoint:
+      - wait-for
+      - postgres:5432
+      - --
+      - /start.sh
+    volumes:
+      - ./bin/wait-for:/usr/local/bin/wait-for
+    environment:
+      DATABASE_URL: postgres://vault:vault@postgres:5432/vault?sslmode=disable
