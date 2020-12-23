@@ -1,0 +1,8 @@
+# Local environment
+.env
+
+# Terraform
+.terraform/
+*.tfstate*
+*.tfstate.*
+*.tfvars
