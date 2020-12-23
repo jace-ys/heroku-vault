@@ -1,0 +1,4 @@
+# Grant admin access to secrets under the default secret engine's mount path
+path "${mount_path}/*" {
+  capabilities = ["create", "read", "update", "delete", "list", "sudo"]
+}
