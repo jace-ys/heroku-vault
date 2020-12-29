@@ -40,3 +40,18 @@ resource "vault_github_auth_backend" "github" {
   organization   = var.github_organisation
   token_policies = [vault_policy.admin.name]
 }
+
+resource "vault_generic_endpoint" "userpass_admin" {
+  count = var.admin_username != null && var.admin_password != null ? 1 : 0
+
+  depends_on           = [vault_auth_backend.userpass]
+  path                 = "auth/userpass/users/${var.admin_username}"
+  ignore_absent_fields = true
+
+  data_json = <<EOT
+{
+  "password": "${var.admin_password}",
+  "policies": ["${vault_policy.admin.name}"]
+}
+EOT
+}

@@ -15,7 +15,7 @@ services:
   vault:
     build:
       context: src
-    image: heroku-vault:latest
+    image: heroku-vault:v0.0.0
     ports:
       - 8200:8200
     entrypoint:
@@ -27,3 +27,4 @@ services:
       - ./bin/wait-for:/usr/local/bin/wait-for
     environment:
       DATABASE_URL: postgres://vault:vault@postgres:5432/vault?sslmode=disable
+      VAULT_INIT_SECRET_KEY: 7KzGVuMmwi40565xgwnJI9lRTAadbc2p

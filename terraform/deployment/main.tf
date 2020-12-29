@@ -17,8 +17,8 @@ resource "heroku_app" "default" {
   stack  = "container"
 
   config_vars = {
-    VAULT_AUTO_UNSEAL = var.vault_auto_unseal
-    VAULT_UNSEAL_KEY  = var.vault_unseal_key
+    VAULT_AUTO_UNSEAL     = var.vault_auto_unseal
+    VAULT_INIT_SECRET_KEY = var.vault_init_secret_key
   }
 }
 

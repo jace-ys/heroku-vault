@@ -15,9 +15,8 @@ variable "vault_auto_unseal" {
   default     = true
 }
 
-variable "vault_unseal_key" {
+variable "vault_init_secret_key" {
   type        = string
-  description = "Key for unsealing Vault whenever the server restarts."
-  default     = null
+  description = "The 32-byte secret key to be used by vault-init for encrypting root tokens and unseal keys."
   sensitive   = true
 }

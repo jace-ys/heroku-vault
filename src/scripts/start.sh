@@ -21,6 +21,10 @@ EOF
 if [[ ${VAULT_AUTO_UNSEAL:-true} = false ]]; then
   vault server -config /vault/config
 else
-  ./unseal.sh "http://127.0.0.1:${PORT:-8200}" &
+  vault-init start \
+    --vault-addr "http://127.0.0.1:${PORT:-8200}" \
+    --local-encryption-secret-key "${VAULT_INIT_SECRET_KEY:?}" \
+    --postgres-storage-connection-url "${DATABASE_URL:?}" &
+
   vault server -config /vault/config
 fi
