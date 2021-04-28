@@ -11,7 +11,7 @@ This deployment of Vault uses a [Heroku Postgres](https://www.heroku.com/postgre
 #### Requirements
 
 - [`terraform v0.14+`](https://www.terraform.io/downloads.html)
-- [`vault-init v0.1+`](https://github.com/jace-ys/vault-init/releases)
+- [`vault-init v0.2+`](https://github.com/jace-ys/vault-init/releases)
 
 You will also need a Heroku account and an associated [API key](https://devcenter.heroku.com/articles/platform-api-quickstart#authentication) for interacting with the Heroku API.
 
@@ -64,8 +64,8 @@ You will also need a Heroku account and an associated [API key](https://devcente
 
    ```shell
    vault-init show \
-      --local-encryption-secret-key [SECRET-KEY] \
-      --postgres-storage-connection-url [DATABASE-URL]
+      --encryption-local-secret-key [SECRET-KEY] \
+      --storage-postgres-connection-url [DATABASE-URL]
    ```
 
    You do not need to store this root token as you can always retrieve it again using `vault-init`.

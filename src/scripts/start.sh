@@ -18,13 +18,11 @@ api_addr = "http://127.0.0.1:${PORT:-8200}"
 ui = ${VAULT_UI:-true}
 EOF
 
-if [[ ${VAULT_AUTO_UNSEAL:-true} = false ]]; then
-  vault server -config /vault/config
-else
+if [[ ${VAULT_AUTO_UNSEAL:-true} = true ]]; then
   vault-init start \
     --vault-addr "http://127.0.0.1:${PORT:-8200}" \
-    --local-encryption-secret-key "${VAULT_INIT_SECRET_KEY:?}" \
-    --postgres-storage-connection-url "${DATABASE_URL:?}" &
-
-  vault server -config /vault/config
+    --encryption-local-secret-key "${VAULT_INIT_SECRET_KEY:?}" \
+    --storage-postgres-connection-url "${DATABASE_URL:?}" &
 fi
+
+vault server -config /vault/config
